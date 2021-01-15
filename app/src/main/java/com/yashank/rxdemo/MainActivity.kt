@@ -12,19 +12,22 @@ import kotlin.math.log
 
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val compositeDisposable = CompositeDisposable()
-        Log.d("nalfnklfsa", "onCreate: ONE -- ${Thread.currentThread().name}")
 
-        val ob = Observable.just("Hello")
+
+        val ob = Observable.just(arrayListOf(1..100))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
+                for(getValue in it){
+                    Log.d("MainActivity", "Value---: $getValue")
 
-                Log.d("nalfnklfsa", "onCreate: $it -- ${Thread.currentThread().name}")
+            }
+
             }
         compositeDisposable.add(ob)
 
